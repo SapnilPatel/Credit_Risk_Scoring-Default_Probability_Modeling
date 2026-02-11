@@ -1,0 +1,38 @@
+project:
+  seed: 42
+
+data:
+  raw_csv: "data/raw/lendingclub.csv"
+  duckdb_path: "data/processed/lendingclub.duckdb"
+  table_name: "loans_raw"
+  features_table: "loans_features"
+  output_dataset: "data/processed/dataset.parquet"
+
+label:
+  # LendingClub typical: Fully Paid vs Charged Off/Default
+  good_status: ["Fully Paid"]
+  bad_status: ["Charged Off", "Default"]
+  label_col: "loan_status"
+
+split:
+  # time split if issue_d exists; otherwise random split fallback
+  time_col: "issue_d"
+  test_size: 0.2
+
+model:
+  use_xgb: true
+  logreg:
+    C: 1.0
+    max_iter: 2000
+  xgb:
+    n_estimators: 500
+    max_depth: 4
+    learning_rate: 0.05
+    subsample: 0.9
+    colsample_bytree: 0.9
+    reg_lambda: 1.0
+
+outputs:
+  logreg_model_path: "models/logreg_pipeline.joblib"
+  xgb_model_path: "models/xgb_pipeline.joblib"
+  metrics_path: "reports/metrics.json"
