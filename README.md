@@ -69,6 +69,4 @@ This project mirrors real-world **quantitative modeling workflows** used by cred
 7. **Risk Band Mapping**  
    PD → Analyst-friendly grades (A–E)  
 
----
 
-## Repository Structure
